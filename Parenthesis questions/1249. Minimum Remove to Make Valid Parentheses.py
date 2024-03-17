@@ -1,19 +1,20 @@
+
 class Solution:
     # Time Complexity -> O(n)
-    # space complexity -> O(n)
-    def minRemoveToMakeValid(self, s: str) -> str:
-        s = list(s)
-        stack = []
-        for i,char in enumerate(s):
-            if char == '(':
-                stack.append(i)
-            elif char == ')':
-                if stack:
-                    stack.pop()
+    # Space Complexity -> O(1)
+    def minAddToMakeValid(self, s: str) -> int:
+        # loop through each character
+        # if char = '(' we need 1 extra ), 
+        # if char = ')' we have a matching pair. If right is more than 0, decrement it by 1
+        # else we need an opening '(' , so increment left by 1
+        # return left + right
+        left, right = 0,0
+        for i in s:
+            if i == '(':
+                right +=1
+            else:
+                if right > 0:
+                    right -= 1
                 else:
-                    s[i] = ''
-
-        while stack:
-            s[stack.pop()] = ''
-        return ''.join(s)
-        
+                    left += 1
+        return left + right
